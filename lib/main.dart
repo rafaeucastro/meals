@@ -14,6 +14,7 @@ class Meals extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Raleway',
         canvasColor: const Color.fromARGB(255, 254, 229, 225),
+        primaryColor: Colors.pink,
         textTheme: ThemeData.light().textTheme.copyWith(
                 titleMedium: const TextStyle(
               fontSize: 20,
