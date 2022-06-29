@@ -1,14 +1,15 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import '../models/meal.dart';
 
 class MealDetailScreen extends StatelessWidget {
-  const MealDetailScreen({Key? key}) : super(key: key);
+  final void Function(Meal) onToggleFavorite;
+  final bool Function(Meal) isFavorite;
+  const MealDetailScreen(this.isFavorite, this.onToggleFavorite, {Key? key})
+      : super(key: key);
 
   Widget _createSectionTitle(BuildContext context, String title) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Text(
         title,
         style: Theme.of(context).textTheme.titleMedium,
@@ -40,7 +41,7 @@ class MealDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 300,
               width: double.infinity,
               child: Image.network(
@@ -78,7 +79,7 @@ class MealDetailScreen extends StatelessWidget {
                         ),
                         title: Text(meal.steps[index]),
                       ),
-                      Divider(),
+                      const Divider(),
                     ],
                   );
                 },
@@ -88,9 +89,9 @@ class MealDetailScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.star),
+        child: Icon(isFavorite(meal) ? Icons.star : Icons.star_border),
         onPressed: () {
-          Navigator.of(context).pop(meal.title);
+          onToggleFavorite(meal);
         },
       ),
     );
